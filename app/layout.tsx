@@ -5,7 +5,7 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ravikant-portfolio.vercel.app'),
+  metadataBase: new URL('https://ravikant-1811.vercel.app'),
   title: 'Ravikant Upadhyay - Full Stack Developer',
   description: 'Full Stack Developer specializing in React, Node.js, and modern web technologies. Building scalable applications and digital experiences.',
   keywords: ['Full Stack Developer', 'React', 'Node.js', 'TypeScript', 'Web Developer', 'Portfolio'],
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     title: 'Ravikant Upadhyay - Full Stack Developer',
     description: 'Full Stack Developer specializing in React, Node.js, and modern web technologies.',
     type: 'website',
-    url: 'https://ravikant-portfolio.vercel.app',
+    url: 'https://ravikant-1811.vercel.app',
     siteName: 'Ravikant Upadhyay Portfolio',
   },
   twitter: {
