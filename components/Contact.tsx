@@ -1,19 +1,19 @@
-'use client';
+"use client";
 
-import emailjs from '@emailjs/browser';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { FiMail, FiMapPin, FiPhone, FiSend } from 'react-icons/fi';
-import { z } from 'zod';
-import { EMAILJS_CONFIG } from '../lib/emailjs-config';
+import emailjs from "@emailjs/browser";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { FiMail, FiMapPin, FiPhone, FiSend } from "react-icons/fi";
+import { z } from "zod";
+import { EMAILJS_CONFIG } from "../lib/emailjs-config";
 
 const contactSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email address'),
-  subject: z.string().min(1, 'Subject is required'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  subject: z.string().min(1, "Subject is required"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
 type ContactForm = z.infer<typeof contactSchema>;
@@ -35,7 +35,7 @@ export function Contact() {
 
   const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
-    
+
     try {
       // Send email using EmailJS
       const result = await emailjs.send(
@@ -46,18 +46,20 @@ export function Contact() {
           from_email: data.email,
           subject: data.subject,
           message: data.message,
-          to_email: 'nravikant123@gmail.com',
+          to_email: "nravikant123@gmail.com",
         },
         EMAILJS_CONFIG.PUBLIC_KEY
       );
-      
-      console.log('Email sent successfully:', result);
+
+      console.log("Email sent successfully:", result);
       setIsSubmitted(true);
       reset();
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (error) {
-      console.error('Failed to send email:', error);
-      alert('Failed to send message. Please try again or contact me directly at nravikant123@gmail.com');
+      console.error("Failed to send email:", error);
+      alert(
+        "Failed to send message. Please try again or contact me directly at nravikant123@gmail.com"
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -66,21 +68,21 @@ export function Contact() {
   const contactInfo = [
     {
       icon: FiMail,
-      label: 'Email',
-      value: 'nravikant123@gmail.com',
-      href: 'mailto:nravikant123@gmail.com',
+      label: "Email",
+      value: "nravikant123@gmail.com",
+      href: "mailto:nravikant123@gmail.com",
     },
     {
       icon: FiPhone,
-      label: 'Phone',
-      value: '+91 7096291214',
-      href: 'tel:+917096291214',
+      label: "Phone",
+      value: "+91 7096291214",
+      href: "tel:+917096291214",
     },
     {
       icon: FiMapPin,
-      label: 'Location',
-      value: 'Vapi, Gujarat, India',
-      href: '#',
+      label: "Location",
+      value: "Vadodara, Gujarat, India",
+      href: "#",
     },
   ];
 
@@ -99,7 +101,8 @@ export function Contact() {
           </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
           <p className="text-xl text-gray-600 dark:text-gray-300 mt-6 max-w-3xl mx-auto">
-            Let's discuss your next project or opportunity. I'm always excited to work on new challenges.
+            Let's discuss your next project or opportunity. I'm always excited
+            to work on new challenges.
           </p>
         </motion.div>
 
@@ -116,8 +119,9 @@ export function Contact() {
                 Let's Connect
               </h3>
               <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                I'm always interested in hearing about new opportunities and projects. 
-                Whether you have a question or just want to say hi, feel free to reach out!
+                I'm always interested in hearing about new opportunities and
+                projects. Whether you have a question or just want to say hi,
+                feel free to reach out!
               </p>
             </div>
 
@@ -127,17 +131,26 @@ export function Contact() {
                   key={info.label}
                   href={info.href}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  animate={
+                    isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
+                  }
                   transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                   whileHover={{ x: 5 }}
                   className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-300 group"
                 >
                   <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors duration-300">
-                    <info.icon className="text-blue-600 dark:text-blue-400" size={20} />
+                    <info.icon
+                      className="text-blue-600 dark:text-blue-400"
+                      size={20}
+                    />
                   </div>
                   <div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">{info.label}</div>
-                    <div className="text-gray-900 dark:text-white font-medium">{info.value}</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-400">
+                      {info.label}
+                    </div>
+                    <div className="text-gray-900 dark:text-white font-medium">
+                      {info.value}
+                    </div>
                   </div>
                 </motion.a>
               ))}
@@ -172,13 +185,15 @@ export function Contact() {
                       Name *
                     </label>
                     <input
-                      {...register('name')}
+                      {...register("name")}
                       type="text"
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-300"
                       placeholder="Your Name"
                     />
                     {errors.name && (
-                      <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name.message}</p>
+                      <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                        {errors.name.message}
+                      </p>
                     )}
                   </div>
 
@@ -187,13 +202,15 @@ export function Contact() {
                       Email *
                     </label>
                     <input
-                      {...register('email')}
+                      {...register("email")}
                       type="email"
                       className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-300"
                       placeholder="your.email@example.com"
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email.message}</p>
+                      <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                        {errors.email.message}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -203,13 +220,15 @@ export function Contact() {
                     Subject *
                   </label>
                   <input
-                    {...register('subject')}
+                    {...register("subject")}
                     type="text"
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all duration-300"
                     placeholder="Project Inquiry"
                   />
                   {errors.subject && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject.message}</p>
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                      {errors.subject.message}
+                    </p>
                   )}
                 </div>
 
@@ -218,13 +237,15 @@ export function Contact() {
                     Message *
                   </label>
                   <textarea
-                    {...register('message')}
+                    {...register("message")}
                     rows={6}
                     className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none transition-all duration-300"
                     placeholder="Tell me about your project..."
                   />
                   {errors.message && (
-                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message.message}</p>
+                    <p className="mt-1 text-sm text-red-600 dark:text-red-400">
+                      {errors.message.message}
+                    </p>
                   )}
                 </div>
 
@@ -238,7 +259,11 @@ export function Contact() {
                   {isSubmitting ? (
                     <motion.div
                       animate={{ rotate: 360 }}
-                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
                       className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                     />
                   ) : (
