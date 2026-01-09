@@ -1,65 +1,75 @@
-'use client';
+"use client";
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
-import { FiBriefcase, FiCalendar, FiMapPin } from 'react-icons/fi';
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { FiBriefcase, FiCalendar, FiMapPin } from "react-icons/fi";
 
 const experiences = [
   {
-    title: 'Software Developer',
-    company: 'SV Placement',
-    location: 'Vapi, Gujarat',
-    period: 'July 2025 - Present',
-    description: 'Developed and launched a digital recruitment platform to enhance talent outreach and employer branding. Built advanced job management systems with filtering capabilities.',
+    title: "Software Developer",
+    company: "Mohphret Technologies LLP",
+    location: "Vapi, Gujarat",
+    period: "Feb 2025 - Present",
+    description:
+      "Developed and launched a digital recruitment platform to enhance talent outreach and employer branding. Built advanced job management systems with filtering capabilities.",
     achievements: [
-      'Built job management system reducing time-to-hire by 40%',
-      'Increased qualified applicants by 25% through platform optimization',
-      'Implemented SEO-friendly practices for better platform visibility',
-      'Aligned functionality with HR and business requirements'
+      "Built job management system reducing time-to-hire by 40%",
+      "Increased qualified applicants by 25% through platform optimization",
+      "Implemented SEO-friendly practices for better platform visibility",
+      "Aligned functionality with HR and business requirements",
     ],
-    technologies: ['JavaScript', 'PHP', 'MySQL', 'HTML/CSS', 'SEO'],
+    technologies: ["JavaScript", "PHP", "MySQL", "HTML/CSS", "SEO"],
   },
   {
-    title: 'Software Developer',
-    company: 'Global Medical Devices',
-    location: 'Pune, Maharashtra',
-    period: 'June 2024 - November 2024',
-    description: 'Built custom CRM and mobile applications to streamline client management, service tracking, and on-site technician support. Developed company website improving online presence.',
+    title: "Software Developer",
+    company: "Global Medical Devices",
+    location: "Pune, Maharashtra",
+    period: "June 2024 - November 2024",
+    description:
+      "Built custom CRM and mobile applications to streamline client management, service tracking, and on-site technician support. Developed company website improving online presence.",
     achievements: [
-      'Developed custom CRM system for client management',
-      'Built mobile app for technician support and service tracking',
-      'Increased organic traffic by 50% in 3 months through website development',
-      'Collaborated with cross-functional teams on digital solutions'
+      "Developed custom CRM system for client management",
+      "Built mobile app for technician support and service tracking",
+      "Increased organic traffic by 50% in 3 months through website development",
+      "Collaborated with cross-functional teams on digital solutions",
     ],
-    technologies: ['PHP', 'JavaScript', 'MySQL', 'Mobile Development', 'Web Development'],
+    technologies: [
+      "PHP",
+      "JavaScript",
+      "MySQL",
+      "Mobile Development",
+      "Web Development",
+    ],
   },
   {
-    title: 'Software Developer',
-    company: 'Corpbiz Experts Solution',
-    location: 'Pune, Maharashtra',
-    period: 'September 2023 - April 2024',
-    description: 'Built custom Dealer Management System (DMS) to streamline client handling, service tracking, and operations with automation. Developed company website and branding materials.',
+    title: "Software Developer",
+    company: "Corpbiz Experts Solution",
+    location: "Pune, Maharashtra",
+    period: "September 2023 - April 2024",
+    description:
+      "Built custom Dealer Management System (DMS) to streamline client handling, service tracking, and operations with automation. Developed company website and branding materials.",
     achievements: [
-      'Developed comprehensive Dealer Management System with automation',
-      'Streamlined client handling and service tracking operations',
-      'Created company website and branding visuals',
-      'Delivered efficient, user-friendly digital solutions'
+      "Developed comprehensive Dealer Management System with automation",
+      "Streamlined client handling and service tracking operations",
+      "Created company website and branding visuals",
+      "Delivered efficient, user-friendly digital solutions",
     ],
-    technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'Automation'],
+    technologies: ["PHP", "MySQL", "JavaScript", "HTML/CSS", "Automation"],
   },
   {
-    title: 'Web Development Intern',
-    company: 'Webbex Innovative India',
-    location: 'Pune, Maharashtra',
-    period: 'June 2023 - July 2023',
-    description: 'Designed and developed responsive web pages using HTML, CSS, JavaScript, and PHP. Enhanced functionality through API integrations and conducted rigorous testing.',
+    title: "Web Development Intern",
+    company: "Webbex Innovative India",
+    location: "Pune, Maharashtra",
+    period: "June 2023 - July 2023",
+    description:
+      "Designed and developed responsive web pages using HTML, CSS, JavaScript, and PHP. Enhanced functionality through API integrations and conducted rigorous testing.",
     achievements: [
-      'Designed and developed responsive web pages',
-      'Enhanced functionality through API integrations',
-      'Conducted rigorous testing for performance and compatibility',
-      'Collaborated effectively with development team'
+      "Designed and developed responsive web pages",
+      "Enhanced functionality through API integrations",
+      "Conducted rigorous testing for performance and compatibility",
+      "Collaborated effectively with development team",
     ],
-    technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'API Integration'],
+    technologies: ["HTML", "CSS", "JavaScript", "PHP", "API Integration"],
   },
 ];
 
@@ -95,16 +105,25 @@ export function Experience() {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                animate={
+                  isInView
+                    ? { opacity: 1, x: 0 }
+                    : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }
+                }
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className={`relative lg:flex lg:items-center ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                  }`}
+                className={`relative lg:flex lg:items-center ${
+                  index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
+                }`}
               >
                 {/* Timeline Dot */}
                 <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-gray-900"></div>
 
                 {/* Content */}
-                <div className={`lg:w-5/12 ${index % 2 === 0 ? 'lg:pr-8' : 'lg:pl-8'}`}>
+                <div
+                  className={`lg:w-5/12 ${
+                    index % 2 === 0 ? "lg:pr-8" : "lg:pl-8"
+                  }`}
+                >
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="bg-white dark:bg-gray-900 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700"
@@ -129,7 +148,10 @@ export function Experience() {
                           </div>
                         </div>
                       </div>
-                      <FiBriefcase className="text-blue-600 dark:text-blue-400 mt-1" size={24} />
+                      <FiBriefcase
+                        className="text-blue-600 dark:text-blue-400 mt-1"
+                        size={24}
+                      />
                     </div>
 
                     {/* Description */}
@@ -144,8 +166,13 @@ export function Experience() {
                       </h4>
                       <ul className="space-y-1">
                         {exp.achievements.map((achievement, i) => (
-                          <li key={i} className="text-sm text-gray-600 dark:text-gray-300 flex items-start">
-                            <span className="text-blue-600 dark:text-blue-400 mr-2">•</span>
+                          <li
+                            key={i}
+                            className="text-sm text-gray-600 dark:text-gray-300 flex items-start"
+                          >
+                            <span className="text-blue-600 dark:text-blue-400 mr-2">
+                              •
+                            </span>
                             {achievement}
                           </li>
                         ))}
