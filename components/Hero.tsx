@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import Image from 'next/image';
+import { useEffect, useState } from 'react';
 import { FiArrowDownRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
 const stats = [
@@ -10,7 +10,26 @@ const stats = [
   { label: 'On-Time Delivery', value: '98%' },
 ];
 
+const GITHUB_USER = 'Ravikant-1811';
+
 export function Hero() {
+  const [avatarUrl, setAvatarUrl] = useState(`https://github.com/${GITHUB_USER}.png`);
+
+  useEffect(() => {
+    const loadAvatar = async () => {
+      try {
+        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}`);
+        if (!res.ok) return;
+        const data = (await res.json()) as { avatar_url?: string };
+        if (data.avatar_url) setAvatarUrl(data.avatar_url);
+      } catch {
+        // keep fallback GitHub avatar URL
+      }
+    };
+
+    loadAvatar();
+  }, []);
+
   return (
     <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">
       <div className="section-shell">
@@ -83,10 +102,10 @@ export function Hero() {
           >
             <div className="glass-card p-4 md:p-6">
               <div className="relative h-[360px] overflow-hidden rounded-2xl border border-white/50 md:h-[460px]">
-                <Image src="/profile.jpg" alt="Ravikant Upadhyay" fill className="object-cover" priority />
+                <img src={avatarUrl} alt="Ravikant Upadhyay" className="h-full w-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/10" />
                 <div className="absolute bottom-4 left-4 right-4 rounded-xl bg-black/55 p-4 text-white backdrop-blur-sm">
-                  <p className="text-xs uppercase tracking-[0.14em] text-cyan-200">Current Role</p>
+                  <p className="text-xs uppercase tracking-[0.14em] text-cyan-200">GitHub Profile Photo</p>
                   <p className="mt-1 text-lg font-semibold">Software Developer at Zeusinfinity Services</p>
                 </div>
               </div>
