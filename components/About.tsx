@@ -1,86 +1,94 @@
 'use client';
 
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { FiCpu, FiGlobe, FiLayers, FiSettings } from 'react-icons/fi';
+
+const focusAreas = [
+  {
+    title: 'Full-Stack Products',
+    detail: 'Web applications, business dashboards, CRM/DMS systems, and API integrations.',
+    icon: FiLayers,
+  },
+  {
+    title: 'AI + Automation',
+    detail: 'AI tool integration, workflow automation, smart content pipelines, and productivity systems.',
+    icon: FiCpu,
+  },
+  {
+    title: 'High-Impact Websites',
+    detail: 'WordPress, Elementor, ACF, SEO-focused pages, and conversion-first site structures.',
+    icon: FiGlobe,
+  },
+  {
+    title: 'Ops and Reliability',
+    detail: 'Linux servers, Cloudflare setups, uptime monitoring, and deployment troubleshooting.',
+    icon: FiSettings,
+  },
+];
 
 export function About() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            About Me
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto"></div>
-        </motion.div>
+    <section id="about" className="py-20 md:py-24">
+      <div className="section-shell">
+        <div className="text-center">
+          <h2 className="section-title">About Me</h2>
+          <p className="section-subtitle">
+            B.Tech CSE graduate with a minor in AI and ML. I build practical software that connects technology with measurable business growth.
+          </p>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image/Avatar Section */}
+        <div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            className="glass-card p-7 md:p-8"
           >
-            <div className="relative w-80 h-80 mx-auto">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-3xl opacity-30"></div>
-              <div className="relative w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 rounded-full flex items-center justify-center text-6xl font-bold text-blue-600 dark:text-blue-400">
-                RU
-              </div>
+            <h3 className="text-2xl font-bold">Software Developer focused on outcomes</h3>
+            <p className="mt-4 text-muted-foreground">
+              I have delivered 21+ websites and 5+ custom software solutions for recruitment, healthcare, and service businesses. My work includes
+              building scalable modules, reducing manual workflows, and creating user-friendly interfaces that teams actually enjoy using.
+            </p>
+            <p className="mt-4 text-muted-foreground">
+              Along with development, I bring experience in digital operations including campaign tooling, email and WhatsApp marketing support,
+              and cross-team coordination. This helps me design systems that perform well both technically and commercially.
+            </p>
+
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {[
+                { label: 'Experience', value: '3+ Years' },
+                { label: 'CGPA', value: '7.47/10' },
+                { label: 'Core Stack', value: 'PHP + JS' },
+                { label: 'Location', value: 'Vadodara' },
+              ].map((item) => (
+                <div key={item.label} className="rounded-xl border border-border bg-card/80 p-3 text-center">
+                  <p className="text-lg font-bold text-primary">{item.value}</p>
+                  <p className="text-xs uppercase tracking-[0.08em] text-muted-foreground">{item.label}</p>
+                </div>
+              ))}
             </div>
           </motion.div>
 
-          {/* Content Section */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="space-y-6"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ delay: 0.1 }}
+            className="grid gap-4"
           >
-            <h3 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Software Developer & AI Enthusiast
-            </h3>
-            
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              I'm a Computer Science Engineering graduate from DY Patil International University (CGPA: 7.47/10) 
-              with extensive experience in software development and innovative AI/IoT solutions. Currently working 
-              as a Software Developer at SV Placement, where I develop digital recruitment platforms and job management systems.
-            </p>
-
-            <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-              My expertise spans from building custom CRM systems and mobile applications to creating AI-powered 
-              smart mirrors and autonomous vacuum cleaners. I'm passionate about leveraging technology to solve 
-              real-world problems and have successfully delivered solutions that improved business efficiency by up to 40%.
-            </p>
-
-            <div className="grid grid-cols-2 gap-6 pt-6">
-              {[
-                { label: 'Projects Completed', value: '10+' },
-                { label: 'Years Experience', value: '2+' },
-                { label: 'Technologies Mastered', value: '12+' },
-                { label: 'Companies Worked', value: '4' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                  className="text-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow-md"
-                >
-                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">{stat.value}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
+            {focusAreas.map((area) => (
+              <div key={area.title} className="glass-card p-5">
+                <div className="flex items-start gap-3">
+                  <div className="rounded-xl bg-primary/12 p-2 text-primary">
+                    <area.icon size={18} />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold">{area.title}</h4>
+                    <p className="mt-1 text-sm text-muted-foreground">{area.detail}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </motion.div>
         </div>
       </div>

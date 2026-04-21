@@ -20,111 +20,109 @@ export function Navbar() {
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }
   };
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg'
+          ? 'border-b border-border/60 bg-background/90 backdrop-blur-lg'
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="text-2xl font-bold text-blue-600 dark:text-blue-400"
+      <div className="section-shell">
+        <div className="flex items-center justify-between py-4">
+          <button
+            onClick={() => scrollToSection('#home')}
+            className="text-lg font-bold tracking-tight text-foreground md:text-xl"
           >
-            Portfolio
-          </motion.div>
+            Ravikant Upadhyay
+          </button>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item, index) => (
-              <motion.button
+          <div className="hidden items-center gap-7 md:flex">
+            {navItems.map((item) => (
+              <button
                 key={item.name}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
                 onClick={() => scrollToSection(item.href)}
-                className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
               >
                 {item.name}
-              </motion.button>
+              </button>
             ))}
-            
-            {/* Theme Toggle */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+            <a
+              href="/Ravikant-Upadhyay-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
             >
-              {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
-            </motion.button>
+              Resume
+            </a>
+            <button
+              onClick={toggleTheme}
+              className="rounded-full border border-border p-2 text-foreground"
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <FiMoon size={17} /> : <FiSun size={17} />}
+            </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+          <div className="flex items-center gap-3 md:hidden">
+            <button
               onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+              className="rounded-full border border-border p-2 text-foreground"
+              aria-label="Toggle theme"
             >
-              {theme === 'light' ? <FiMoon size={20} /> : <FiSun size={20} />}
-            </motion.button>
-            
-            <motion.button
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-gray-700 dark:text-gray-300"
+              {theme === 'light' ? <FiMoon size={17} /> : <FiSun size={17} />}
+            </button>
+            <button
+              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              className="rounded-full border border-border p-2"
+              aria-label="Toggle menu"
             >
-              {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-            </motion.button>
+              {isMobileMenuOpen ? <FiX size={19} /> : <FiMenu size={19} />}
+            </button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
         <motion.div
-          initial={{ opacity: 0, height: 0 }}
+          initial={false}
           animate={{
-            opacity: isMobileMenuOpen ? 1 : 0,
             height: isMobileMenuOpen ? 'auto' : 0,
+            opacity: isMobileMenuOpen ? 1 : 0,
           }}
-          className="md:hidden overflow-hidden"
+          className="overflow-hidden md:hidden"
         >
-          <div className="py-4 space-y-4">
-            {navItems.map((item, index) => (
-              <motion.button
+          <div className="glass-card mb-4 space-y-3 p-4">
+            {navItems.map((item) => (
+              <button
                 key={item.name}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
                 onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200"
+                className="block w-full text-left text-sm font-semibold text-foreground"
               >
                 {item.name}
-              </motion.button>
+              </button>
             ))}
+            <a
+              href="/Ravikant-Upadhyay-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+            >
+              Open Resume
+            </a>
           </div>
         </motion.div>
       </div>
