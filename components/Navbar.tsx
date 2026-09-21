@@ -1,131 +1,52 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { FiMenu, FiMoon, FiSun, FiX } from 'react-icons/fi';
 import { useTheme } from './ThemeProvider';
 
 const navItems = [
-  { name: 'Home', href: '#home' },
+  { name: 'Work', href: '#projects' },
   { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
   { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
 ];
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const update = () => setScrolled(window.scrollY > 24);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
-  };
-
   return (
-    <motion.nav
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'border-b border-border/60 bg-background/90 backdrop-blur-lg'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="section-shell">
-        <div className="flex items-center justify-between py-4">
-          <button
-            onClick={() => scrollToSection('#home')}
-            className="text-lg font-bold tracking-tight text-foreground md:text-xl"
-          >
-            Ravikant Upadhyay
-          </button>
-
-          <div className="hidden items-center gap-7 md:flex">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {item.name}
-              </button>
-            ))}
-            <a
-              href="/Ravikant-Upadhyay-Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
-            >
-              Resume
-            </a>
-            <button
-              onClick={toggleTheme}
-              className="rounded-full border border-border p-2 text-foreground"
-              aria-label="Toggle theme"
-            >
-              {theme === 'light' ? <FiMoon size={17} /> : <FiSun size={17} />}
-            </button>
-          </div>
-
-          <div className="flex items-center gap-3 md:hidden">
-            <button
-              onClick={toggleTheme}
-              className="rounded-full border border-border p-2 text-foreground"
-              aria-label="Toggle theme"
-            >
-              {theme === 'light' ? <FiMoon size={17} /> : <FiSun size={17} />}
-            </button>
-            <button
-              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              className="rounded-full border border-border p-2"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <FiX size={19} /> : <FiMenu size={19} />}
-            </button>
-          </div>
+    <header className={`fixed inset-x-0 top-0 z-50 transition ${scrolled ? 'bg-background/95 shadow-sm backdrop-blur' : 'bg-transparent'}`}>
+      <div className="section-shell flex h-20 items-center justify-between border-b border-foreground/25">
+        <a href="#home" className="flex items-center gap-3" aria-label="Back to home">
+          <span className="grid h-10 w-10 place-items-center bg-foreground font-serif text-lg text-background">RU</span>
+          <span className="hidden text-sm font-bold uppercase tracking-[0.13em] sm:block">Ravikant Upadhyay</span>
+        </a>
+        <nav className="hidden items-center gap-7 md:flex">
+          {navItems.map((item) => <a key={item.name} href={item.href} className="text-xs font-bold uppercase tracking-[0.14em] hover:text-primary">{item.name}</a>)}
+          <a href="/Ravikant-Upadhyay-Resume.pdf" target="_blank" rel="noopener noreferrer" className="button-primary !px-4 !py-2.5">Resume</a>
+          <button onClick={toggleTheme} className="grid h-10 w-10 place-items-center border border-foreground" aria-label="Toggle color theme">{theme === 'light' ? <FiMoon size={17} /> : <FiSun size={17} />}</button>
+        </nav>
+        <div className="flex gap-2 md:hidden">
+          <button onClick={toggleTheme} className="grid h-10 w-10 place-items-center border border-foreground" aria-label="Toggle color theme">{theme === 'light' ? <FiMoon size={17} /> : <FiSun size={17} />}</button>
+          <button onClick={() => setMenuOpen((value) => !value)} className="grid h-10 w-10 place-items-center bg-foreground text-background" aria-label="Toggle navigation">{menuOpen ? <FiX size={19} /> : <FiMenu size={19} />}</button>
         </div>
-
-        <motion.div
-          initial={false}
-          animate={{
-            height: isMobileMenuOpen ? 'auto' : 0,
-            opacity: isMobileMenuOpen ? 1 : 0,
-          }}
-          className="overflow-hidden md:hidden"
-        >
-          <div className="glass-card mb-4 space-y-3 p-4">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="block w-full text-left text-sm font-semibold text-foreground"
-              >
-                {item.name}
-              </button>
-            ))}
-            <a
-              href="/Ravikant-Upadhyay-Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
-            >
-              Open Resume
-            </a>
-          </div>
-        </motion.div>
       </div>
-    </motion.nav>
+      {menuOpen && (
+        <nav className="border-b border-foreground bg-background px-5 py-6 md:hidden">
+          <div className="flex flex-col gap-5">
+            {navItems.map((item) => <a key={item.name} href={item.href} onClick={() => setMenuOpen(false)} className="font-serif text-3xl">{item.name}</a>)}
+          </div>
+        </nav>
+      )}
+    </header>
   );
 }

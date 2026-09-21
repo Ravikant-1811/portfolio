@@ -1,126 +1,45 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { FiArrowDownRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
+import { FiArrowDownRight, FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
 
-const stats = [
-  { label: 'Websites Delivered', value: '21+' },
-  { label: 'Custom Software Builds', value: '5+' },
-  { label: 'On-Time Delivery', value: '98%' },
-];
-
-const GITHUB_USER = 'Ravikant-1811';
+const tools = ['PHP', 'WordPress', 'React', 'Automation', 'CRM Systems', 'Cloudflare', 'Linux', 'AI Workflows'];
 
 export function Hero() {
-  const [avatarUrl, setAvatarUrl] = useState(`https://github.com/${GITHUB_USER}.png`);
-
-  useEffect(() => {
-    const loadAvatar = async () => {
-      try {
-        const res = await fetch(`https://api.github.com/users/${GITHUB_USER}`);
-        if (!res.ok) return;
-        const data = (await res.json()) as { avatar_url?: string };
-        if (data.avatar_url) setAvatarUrl(data.avatar_url);
-      } catch {
-        // keep fallback GitHub avatar URL
-      }
-    };
-
-    loadAvatar();
-  }, []);
-
   return (
-    <section id="home" className="relative overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">
+    <section id="home" className="overflow-hidden pt-20">
       <div className="section-shell">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className="inline-flex items-center rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.14em] text-primary">
-              Software Developer | AI + Automation
-            </span>
-            <h1 className="mt-5 text-4xl font-bold leading-tight md:text-6xl">
-              Building reliable digital systems that improve business performance.
-            </h1>
-            <p className="mt-6 max-w-2xl text-base text-muted-foreground md:text-xl">
-              I am Ravikant Upadhyay, a full-stack developer with hands-on experience in AI tools, CRM/DMS systems, WordPress builds,
-              and automation workflows. I turn ideas into production-ready products.
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
-              >
-                Hire Me
-                <FiArrowDownRight size={16} />
-              </a>
-              <a
-                href="#projects"
-                className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground"
-              >
-                View Work
-              </a>
-              <a
-                href="/Ravikant-Upadhyay-Resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground"
-              >
-                Download Resume
-              </a>
+        <div className="grid min-h-[760px] border-x border-foreground/25 lg:grid-cols-[1fr_320px]">
+          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} className="flex flex-col justify-between p-6 py-16 sm:p-10 lg:p-14 lg:py-20">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <span className="eyebrow flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-accent/25" /> Available for selected projects</span>
+              <span className="eyebrow text-muted-foreground">Vadodara / India / Remote</span>
             </div>
-
-            <div className="mt-8 flex items-center gap-3">
-              {[
-                { href: 'https://github.com/Ravikant-1811', icon: FiGithub, label: 'GitHub' },
-                { href: 'https://linkedin.com/in/ravikant-upadhyay', icon: FiLinkedin, label: 'LinkedIn' },
-                { href: 'mailto:nravikant123@gmail.com', icon: FiMail, label: 'Email' },
-              ].map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="rounded-full border border-border p-3 text-foreground transition-all hover:-translate-y-0.5 hover:border-primary"
-                  aria-label={item.label}
-                >
-                  <item.icon size={18} />
-                </a>
-              ))}
+            <div className="my-16 max-w-5xl">
+              <p className="eyebrow mb-6 text-primary">Software developer + systems operator</p>
+              <h1 className="text-[clamp(4rem,10vw,9.5rem)] font-normal leading-[0.78] tracking-[-0.075em]">I build the<br />systems behind<br /><span className="text-primary">the work.</span></h1>
+              <p className="mt-10 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Production-ready web products, CRM workflows, WordPress platforms, and automation built to survive real users, real deadlines, and real operations.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <a href="#projects" className="button-primary">See selected work <FiArrowDownRight /></a>
+              <a href="mailto:nravikant123@gmail.com" className="button-outline">Start a conversation <FiArrowUpRight /></a>
             </div>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="relative"
-          >
-            <div className="glass-card p-4 md:p-6">
-              <div className="relative h-[360px] overflow-hidden rounded-2xl border border-white/50 md:h-[460px]">
-                <img src={avatarUrl} alt="Ravikant Upadhyay" className="h-full w-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/10" />
-                <div className="absolute bottom-4 left-4 right-4 rounded-xl bg-black/55 p-4 text-white backdrop-blur-sm">
-                  <p className="text-xs uppercase tracking-[0.14em] text-cyan-200">GitHub Profile Photo</p>
-                  <p className="mt-1 text-lg font-semibold">Software Developer at Zeusinfinity Services</p>
-                </div>
-              </div>
+          <aside className="flex flex-col justify-between border-t border-foreground/25 bg-foreground p-7 text-background lg:border-l lg:border-t-0 lg:p-9">
+            <div><p className="eyebrow text-background/55">Operating profile</p><p className="mt-6 font-serif text-4xl leading-tight">Engineer when it needs building. Operator when it needs shipping.</p></div>
+            <div className="space-y-0">
+              {[["03+", "Years building"], ["21+", "Websites delivered"], ["05+", "Custom systems"]].map(([value, label]) => <div key={label} className="border-t border-background/30 py-5"><p className="font-serif text-5xl text-accent">{value}</p><p className="eyebrow mt-1 text-background/55">{label}</p></div>)}
             </div>
-
-            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <div key={stat.label} className="glass-card p-4 text-center">
-                  <p className="text-2xl font-bold text-primary">{stat.value}</p>
-                  <p className="mt-1 text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground">{stat.label}</p>
-                </div>
-              ))}
+            <div className="flex gap-3 border-t border-background/30 pt-6">
+              <a href="https://github.com/Ravikant-1811" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="grid h-11 w-11 place-items-center border border-background/50 hover:bg-background hover:text-foreground"><FiGithub /></a>
+              <a href="https://linkedin.com/in/ravikant-upadhyay" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="grid h-11 w-11 place-items-center border border-background/50 hover:bg-background hover:text-foreground"><FiLinkedin /></a>
+              <a href="mailto:nravikant123@gmail.com" aria-label="Email" className="grid h-11 w-11 place-items-center border border-background/50 hover:bg-background hover:text-foreground"><FiMail /></a>
             </div>
-          </motion.div>
+          </aside>
         </div>
+      </div>
+      <div className="overflow-hidden border-y border-foreground bg-accent py-4 text-accent-foreground">
+        <div className="ticker-track flex w-max whitespace-nowrap">{[...tools, ...tools].map((tool, index) => <span key={`${tool}-${index}`} className="eyebrow mx-7 flex items-center gap-7">{tool}<span>✦</span></span>)}</div>
       </div>
     </section>
   );
