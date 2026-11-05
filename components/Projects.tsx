@@ -1,38 +1,71 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FiArrowUpRight, FiGithub } from 'react-icons/fi';
-
-const projects = [
-  { index: '01', title: 'Taskflow', description: 'A multi-tenant task and workspace system designed for teams that need clarity without heavyweight project software.', impact: 'Workspaces · roles · task pipelines', stack: ['PHP', 'SQLite', 'JavaScript'], href: 'https://github.com/Ravikant-1811/Taskflow-PHP', tone: 'bg-secondary text-secondary-foreground' },
-  { index: '02', title: 'Multi-User Communication Platform', description: 'A role-based business platform with separate admin and client dashboards, secure access, and real-time communication.', impact: 'Auth · dashboards · live chat', stack: ['PHP', 'MySQL', 'AJAX'], href: 'https://github.com/Ravikant-1811/Multi-User-PHP-Web-Application', tone: 'bg-primary text-primary-foreground' },
-  { index: '03', title: 'WhatsApp Campaign Console', description: 'A controlled bulk-messaging dashboard with templates, scheduling, queue visibility, and safer delivery controls.', impact: 'Queues · campaigns · automation', stack: ['TypeScript', 'Node.js', 'Automation'], href: 'https://github.com/Ravikant-1811/Whatsapp-Bulk-Bot', tone: 'bg-foreground text-background' },
-];
-
-const smallerProjects = [
-  ['Digital Card Generator', 'PHP + SQLite product for creating and sharing managed digital cards.', 'Digital-Card-Generator'],
-  ['Email Signature Tool', 'Reusable email-safe signature builder with saved profile support.', 'Email-Signature-Tool'],
-  ['Find Business', 'Business discovery and lead collection platform backed by PHP and MySQL.', 'find-business'],
-];
+import { FiArrowUpRight, FiCheck, FiGithub } from 'react-icons/fi';
+import { featuredProjects, openSource, profile } from '@/lib/profile';
+import { Reveal, SectionHeader } from './ui';
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 sm:py-32">
+    <section id="projects" className="section">
       <div className="section-shell">
-        <div className="grid gap-8 border-b border-foreground pb-10 lg:grid-cols-[1fr_0.8fr] lg:items-end">
-          <div><p className="eyebrow mb-5 text-primary">Selected work / 2024—2026</p><h2 className="section-title">Proof, not promises.</h2></div>
-          <p className="max-w-xl text-base leading-relaxed text-muted-foreground lg:justify-self-end lg:text-lg">A selection of products built around the work businesses actually do: coordinating teams, serving clients, moving information, and reducing repetition.</p>
-        </div>
-        <div className="mt-10 grid gap-5 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <motion.article key={project.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ delay: index * 0.08 }} className={`${project.tone} flex min-h-[480px] flex-col justify-between p-7 sm:p-9`}>
-              <div className="flex items-start justify-between"><span className="eyebrow opacity-65">Project {project.index}</span><FiArrowUpRight size={24} /></div>
-              <div><p className="mb-5 text-sm font-bold uppercase tracking-[0.12em] opacity-65">{project.impact}</p><h3 className="font-serif text-4xl leading-[0.95] sm:text-5xl">{project.title}</h3><p className="mt-6 leading-relaxed opacity-80">{project.description}</p><div className="mt-8 flex flex-wrap gap-2">{project.stack.map((item) => <span key={item} className="border border-current/40 px-3 py-1.5 text-xs font-bold uppercase tracking-wider">{item}</span>)}</div><a href={project.href} target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 border-b border-current pb-1 text-sm font-bold">View repository <FiGithub /></a></div>
-            </motion.article>
+        <SectionHeader
+          eyebrow="Projects"
+          title="Things I’ve built"
+          lead="Hardware, infrastructure and client software — plus open-source tools on GitHub."
+        />
+
+        <div className="grid gap-5 lg:grid-cols-3">
+          {featuredProjects.map((project, i) => (
+            <Reveal key={project.title} delay={i * 0.06} className="card card-hover flex flex-col p-6">
+              <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">{project.context}</p>
+              <h3 className="mt-3 text-xl font-semibold leading-snug">{project.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{project.description}</p>
+              <ul className="mt-5 space-y-2 text-sm">
+                {project.highlights.map((h) => (
+                  <li key={h} className="flex items-center gap-2">
+                    <FiCheck className="shrink-0 text-accent" /> {h}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex flex-wrap gap-2 pt-6">
+                {project.stack.map((s) => (
+                  <span key={s} className="chip">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
           ))}
         </div>
-        <div className="mt-16">
-          {smallerProjects.map(([title, description, slug], index) => <a key={title} href={`https://github.com/Ravikant-1811/${slug}`} target="_blank" rel="noopener noreferrer" className="group grid gap-3 border-t border-foreground/30 py-6 transition hover:px-3 hover:bg-foreground hover:text-background sm:grid-cols-[64px_1fr_1fr_auto] sm:items-center"><span className="eyebrow opacity-50">0{index + 4}</span><h3 className="font-serif text-2xl sm:text-3xl">{title}</h3><p className="text-sm opacity-65">{description}</p><FiArrowUpRight className="transition group-hover:rotate-45" /></a>)}
+
+        <Reveal className="mt-14 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h3 className="text-2xl font-bold">Open source</h3>
+            <p className="mt-1 text-sm text-muted-foreground">Tools and apps published on GitHub.</p>
+          </div>
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="btn-ghost">
+            <FiGithub /> All repositories
+          </a>
+        </Reveal>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {openSource.map((repo, i) => (
+            <Reveal key={repo.title} delay={i * 0.04}>
+              <a
+                href={repo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card card-hover group flex h-full flex-col p-5"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <h4 className="font-semibold group-hover:text-primary">{repo.title}</h4>
+                  <FiArrowUpRight className="shrink-0 text-muted-foreground transition group-hover:rotate-45 group-hover:text-primary" />
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{repo.description}</p>
+                <p className="mt-auto pt-4 text-xs font-medium text-muted-foreground">{repo.stack.join(' · ')}</p>
+              </a>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

@@ -1,45 +1,99 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FiArrowDownRight, FiArrowUpRight, FiGithub, FiLinkedin, FiMail } from 'react-icons/fi';
-
-const tools = ['PHP', 'WordPress', 'React', 'Automation', 'CRM Systems', 'Cloudflare', 'Linux', 'AI Workflows'];
+import { useState } from 'react';
+import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiMapPin } from 'react-icons/fi';
+import { profile, stats } from '@/lib/profile';
 
 export function Hero() {
+  const [avatarFailed, setAvatarFailed] = useState(false);
+
   return (
-    <section id="home" className="overflow-hidden pt-20">
-      <div className="section-shell">
-        <div className="grid min-h-[760px] border-x border-foreground/25 lg:grid-cols-[1fr_320px]">
-          <motion.div initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.65 }} className="flex flex-col justify-between p-6 py-16 sm:p-10 lg:p-14 lg:py-20">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <span className="eyebrow flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-accent ring-4 ring-accent/25" /> Available for selected projects</span>
-              <span className="eyebrow text-muted-foreground">Vadodara / India / Remote</span>
-            </div>
-            <div className="my-16 max-w-5xl">
-              <p className="eyebrow mb-6 text-primary">Software developer + systems operator</p>
-              <h1 className="text-[clamp(4rem,10vw,9.5rem)] font-normal leading-[0.78] tracking-[-0.075em]">I build the<br />systems behind<br /><span className="text-primary">the work.</span></h1>
-              <p className="mt-10 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">Production-ready web products, CRM workflows, WordPress platforms, and automation built to survive real users, real deadlines, and real operations.</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3">
-              <a href="#projects" className="button-primary">See selected work <FiArrowDownRight /></a>
-              <a href="mailto:nravikant123@gmail.com" className="button-outline">Start a conversation <FiArrowUpRight /></a>
+    <section id="home" className="relative overflow-hidden pt-28 sm:pt-32">
+      <div className="hero-glow pointer-events-none absolute inset-0" />
+      <div className="dot-grid pointer-events-none absolute inset-0" />
+
+      <div className="section-shell relative">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_0.75fr]">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <span className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1.5 text-xs font-medium text-muted-foreground">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              </span>
+              {profile.availability}
+            </span>
+
+            <h1 className="mt-6 text-4xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
+              Hi, I’m {profile.name.split(' ')[0]}.
+              <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                I build software that works for business.
+              </span>
+            </h1>
+
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+              {profile.role} specialising in full-stack web, CRM/DMS systems, AI-powered automation and IoT — with a marketer’s eye for what
+              actually moves the needle.
+            </p>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href="#experience" className="btn-primary">
+                View my experience <FiArrowRight />
+              </a>
+              <a href="#contact" className="btn-ghost">
+                Get in touch
+              </a>
             </div>
           </motion.div>
-          <aside className="flex flex-col justify-between border-t border-foreground/25 bg-foreground p-7 text-background lg:border-l lg:border-t-0 lg:p-9">
-            <div><p className="eyebrow text-background/55">Operating profile</p><p className="mt-6 font-serif text-4xl leading-tight">Engineer when it needs building. Operator when it needs shipping.</p></div>
-            <div className="space-y-0">
-              {[["03+", "Years building"], ["21+", "Websites delivered"], ["05+", "Custom systems"]].map(([value, label]) => <div key={label} className="border-t border-background/30 py-5"><p className="font-serif text-5xl text-accent">{value}</p><p className="eyebrow mt-1 text-background/55">{label}</p></div>)}
+
+          <motion.aside
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
+            className="card p-6"
+          >
+            <div className="flex items-center gap-4">
+              <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-accent">
+                {!avatarFailed ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={profile.avatar} alt={profile.name} className="h-full w-full object-cover" onError={() => setAvatarFailed(true)} />
+                ) : (
+                  <span className="grid h-full w-full place-items-center text-2xl font-bold text-white">{profile.initials}</span>
+                )}
+              </div>
+              <div>
+                <p className="text-lg font-semibold">{profile.name}</p>
+                <p className="text-sm text-muted-foreground">{profile.role}</p>
+                <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+                  <FiMapPin /> {profile.location}
+                </p>
+              </div>
             </div>
-            <div className="flex gap-3 border-t border-background/30 pt-6">
-              <a href="https://github.com/Ravikant-1811" target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="grid h-11 w-11 place-items-center border border-background/50 hover:bg-background hover:text-foreground"><FiGithub /></a>
-              <a href="https://linkedin.com/in/ravikant-upadhyay" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="grid h-11 w-11 place-items-center border border-background/50 hover:bg-background hover:text-foreground"><FiLinkedin /></a>
-              <a href="mailto:nravikant123@gmail.com" aria-label="Email" className="grid h-11 w-11 place-items-center border border-background/50 hover:bg-background hover:text-foreground"><FiMail /></a>
+
+            <p className="mt-5 rounded-xl bg-muted px-4 py-3 text-sm font-medium">{profile.tagline}</p>
+
+            <dl className="mt-5 grid grid-cols-2 gap-3">
+              {stats.map((s) => (
+                <div key={s.label} className="rounded-xl border p-3">
+                  <dt className="text-xs text-muted-foreground">{s.label}</dt>
+                  <dd className="mt-1 text-2xl font-bold text-primary">{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <div className="mt-5 flex gap-2">
+              <a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="icon-btn">
+                <FiGithub />
+              </a>
+              <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="icon-btn">
+                <FiLinkedin />
+              </a>
+              <a href={`mailto:${profile.email}`} aria-label="Email" className="icon-btn">
+                <FiMail />
+              </a>
             </div>
-          </aside>
+          </motion.aside>
         </div>
-      </div>
-      <div className="overflow-hidden border-y border-foreground bg-accent py-4 text-accent-foreground">
-        <div className="ticker-track flex w-max whitespace-nowrap">{[...tools, ...tools].map((tool, index) => <span key={`${tool}-${index}`} className="eyebrow mx-7 flex items-center gap-7">{tool}<span>✦</span></span>)}</div>
       </div>
     </section>
   );

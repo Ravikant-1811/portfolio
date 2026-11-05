@@ -3,88 +3,132 @@
 @tailwind utilities;
 
 :root {
-  --background: 42 46% 96%;
-  --foreground: 216 25% 11%;
-  --card: 42 40% 92%;
-  --card-foreground: 216 25% 11%;
-  --popover: 42 46% 96%;
-  --popover-foreground: 216 25% 11%;
-  --primary: 15 95% 58%;
-  --primary-foreground: 42 46% 97%;
-  --secondary: 218 79% 52%;
+  --background: 220 23% 97%;
+  --foreground: 224 39% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 224 39% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 224 39% 11%;
+  --primary: 243 75% 58%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 224 39% 11%;
   --secondary-foreground: 0 0% 100%;
-  --muted: 40 19% 86%;
-  --muted-foreground: 216 10% 38%;
-  --accent: 73 75% 52%;
-  --accent-foreground: 216 25% 11%;
+  --muted: 220 17% 93%;
+  --muted-foreground: 220 9% 40%;
+  --accent: 160 84% 36%;
+  --accent-foreground: 0 0% 100%;
   --destructive: 0 72% 50%;
   --destructive-foreground: 0 0% 100%;
-  --border: 216 20% 17%;
-  --input: 216 15% 75%;
-  --ring: 15 95% 58%;
-  --radius: 0.25rem;
+  --border: 220 15% 87%;
+  --input: 220 15% 82%;
+  --ring: 243 75% 58%;
+  --radius: 1rem;
 }
 
 .dark {
-  --background: 216 25% 9%;
-  --foreground: 42 40% 94%;
-  --card: 216 23% 13%;
-  --card-foreground: 42 40% 94%;
-  --popover: 216 25% 9%;
-  --popover-foreground: 42 40% 94%;
-  --primary: 18 100% 64%;
-  --primary-foreground: 216 25% 9%;
-  --secondary: 218 82% 63%;
-  --secondary-foreground: 216 25% 9%;
-  --muted: 216 16% 20%;
-  --muted-foreground: 40 14% 68%;
-  --accent: 73 72% 56%;
-  --accent-foreground: 216 25% 9%;
-  --border: 42 16% 78%;
-  --input: 216 14% 30%;
-  --ring: 18 100% 64%;
+  --background: 226 40% 6%;
+  --foreground: 216 33% 95%;
+  --card: 225 32% 10%;
+  --card-foreground: 216 33% 95%;
+  --popover: 225 32% 10%;
+  --popover-foreground: 216 33% 95%;
+  --primary: 238 90% 74%;
+  --primary-foreground: 226 40% 8%;
+  --secondary: 216 33% 95%;
+  --secondary-foreground: 226 40% 8%;
+  --muted: 225 25% 14%;
+  --muted-foreground: 219 14% 66%;
+  --accent: 158 64% 52%;
+  --accent-foreground: 226 40% 8%;
+  --border: 225 22% 18%;
+  --input: 225 20% 24%;
+  --ring: 238 90% 74%;
 }
 
 @layer base {
-  * { @apply border-border; }
-  html { scroll-behavior: smooth; }
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Avenir Next', 'Century Gothic', 'Trebuchet MS', sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     min-height: 100vh;
-    background-image:
-      linear-gradient(rgba(19, 25, 35, 0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(19, 25, 35, 0.035) 1px, transparent 1px);
-    background-size: 48px 48px;
   }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: Georgia, 'Times New Roman', serif;
-    letter-spacing: -0.045em;
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.025em;
   }
 }
 
 @layer components {
-  .section-shell { @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12; }
-  .eyebrow { @apply font-sans text-[11px] font-bold uppercase tracking-[0.22em]; }
-  .section-title { @apply text-4xl font-normal leading-[0.95] sm:text-5xl lg:text-7xl; }
-  .hairline { @apply border-t border-foreground/25; }
-  .button-primary { @apply inline-flex items-center justify-center gap-2 bg-foreground px-5 py-3 text-sm font-bold text-background transition hover:-translate-y-1 hover:bg-primary hover:text-primary-foreground; }
-  .button-outline { @apply inline-flex items-center justify-center gap-2 border border-foreground px-5 py-3 text-sm font-bold transition hover:-translate-y-1 hover:bg-foreground hover:text-background; }
-  .reveal-card { @apply border border-foreground/20 bg-background transition duration-300 hover:-translate-y-1 hover:border-foreground hover:shadow-[8px_8px_0_hsl(var(--foreground))]; }
+  .section-shell {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+  .section {
+    @apply py-20 sm:py-28;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary;
+  }
+  .section-title {
+    @apply mt-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl;
+  }
+  .section-lead {
+    @apply mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg;
+  }
+  .card {
+    @apply rounded-2xl border bg-card text-card-foreground shadow-sm;
+  }
+  .card-hover {
+    @apply transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full border bg-background px-3 py-1 text-xs font-medium text-muted-foreground;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground hover:opacity-90;
+  }
+  .btn-ghost {
+    @apply btn border bg-card hover:border-primary/50 hover:text-primary;
+  }
+  .icon-btn {
+    @apply grid h-10 w-10 place-items-center rounded-full border bg-card transition hover:border-primary/50 hover:text-primary;
+  }
 }
 
-::selection { background: hsl(var(--accent)); color: hsl(var(--accent-foreground)); }
-::-webkit-scrollbar { width: 9px; }
-::-webkit-scrollbar-track { background: hsl(var(--background)); }
-::-webkit-scrollbar-thumb { background: hsl(var(--foreground)); border: 2px solid hsl(var(--background)); }
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+.hero-glow {
+  background:
+    radial-gradient(40rem 24rem at 15% 0%, hsl(var(--primary) / 0.16), transparent 70%),
+    radial-gradient(32rem 20rem at 90% 10%, hsl(var(--accent) / 0.12), transparent 70%);
 }
 
-.ticker-track { animation: ticker 24s linear infinite; }
+.dot-grid {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.25);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track { animation: none; }
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

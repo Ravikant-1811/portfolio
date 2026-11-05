@@ -5,13 +5,16 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://ravikant-1811.vercel.app'),
   title: 'Ravikant Upadhyay | Software Developer',
   description:
-    'Software Developer with expertise in AI/ML, full-stack web development, WordPress, automation, and IoT solutions.',
+    'Ravikant Upadhyay — Software Developer in Vadodara, India, specialising in AI & ML, full-stack web development, CRM/DMS systems, WordPress, automation and IoT.',
   keywords: [
     'Ravikant Upadhyay',
     'Software Developer',
     'Full Stack Developer',
     'AI ML',
     'WordPress Developer',
+    'CRM Developer',
+    'IoT',
+    'Vadodara',
     'Portfolio',
   ],
   authors: [{ name: 'Ravikant Upadhyay' }],

@@ -1,26 +1,71 @@
 'use client';
 
-import { motion } from 'framer-motion';
-
-const experiences = [
-  { company: 'Zeusinfinity Services', role: 'Software Developer', period: 'Jan 2026 — Present', location: 'Vadodara', detail: 'WordPress systems, custom software, AI-enabled workflows, server operations, and hands-on client delivery.' },
-  { company: 'Mohphret Technologies LLP', role: 'Software Developer', period: 'Feb 2025 — Jan 2026', location: 'Vapi', detail: 'Company web platform and recruitment software modules focused on faster, clearer internal operations.' },
-  { company: 'Global Medical Devices', role: 'Software Developer', period: 'Jun 2024 — Nov 2024', location: 'Pune', detail: 'CRM, service tracking, company website, and field-technician mobile support for a medical devices team.' },
-  { company: 'Corpbiz Experts Solution', role: 'Social Media Manager', period: 'Sep 2023 — Apr 2024', location: 'Pune', detail: 'Campaign operations, creative production, WhatsApp and email workflows, and dealer-management initiatives.' },
-];
+import { FiExternalLink, FiMapPin } from 'react-icons/fi';
+import { experience } from '@/lib/profile';
+import { Metric, Reveal, SectionHeader } from './ui';
 
 export function Experience() {
   return (
-    <section id="experience" className="bg-muted/50 py-24 sm:py-32">
+    <section id="experience" className="section bg-muted/40">
       <div className="section-shell">
-        <div className="flex flex-col justify-between gap-6 border-b border-foreground pb-10 sm:flex-row sm:items-end"><div><p className="eyebrow mb-5 text-primary">Experience</p><h2 className="section-title">Where I learned<br />to deliver.</h2></div><p className="max-w-sm text-sm leading-relaxed text-muted-foreground">A path through development, operations, client work, and digital delivery—each role adding another layer to how I build.</p></div>
-        <div>
-          {experiences.map((item, index) => (
-            <motion.article key={item.company} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ delay: index * 0.05 }} className="grid gap-4 border-b border-foreground/30 py-7 md:grid-cols-[60px_1fr_1fr_1.2fr] md:items-start">
-              <span className="eyebrow text-primary">0{index + 1}</span><div><h3 className="font-serif text-2xl">{item.company}</h3><p className="mt-1 text-sm font-bold">{item.role}</p></div><div className="text-sm text-muted-foreground"><p>{item.period}</p><p>{item.location}</p></div><p className="text-sm leading-relaxed text-muted-foreground">{item.detail}</p>
-            </motion.article>
+        <SectionHeader
+          eyebrow="Experience"
+          title="Where I’ve made an impact"
+          lead="From web development and CRM systems to social media operations — each role measured by outcomes, not just output."
+        />
+
+        <ol className="relative space-y-6 border-l pl-6 sm:pl-10">
+          {experience.map((job, i) => (
+            <li key={job.company} className="relative">
+              <span
+                className={`absolute -left-[31px] top-7 h-3.5 w-3.5 rounded-full border-2 border-background sm:-left-[47px] ${
+                  job.current ? 'bg-accent ring-4 ring-accent/20' : 'bg-primary'
+                }`}
+              />
+              <Reveal delay={i * 0.04} className="card p-6 sm:p-7">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-xl font-semibold">{job.role}</h3>
+                    <p className="font-medium text-primary">{job.company}</p>
+                  </div>
+                  <div className="text-right text-sm text-muted-foreground">
+                    <p className="font-medium text-foreground">
+                      {job.period}
+                      {job.current && <span className="ml-2 rounded-full bg-accent/15 px-2 py-0.5 text-xs text-accent">Current</span>}
+                    </p>
+                    <p className="mt-1 flex items-center justify-end gap-1">
+                      <FiMapPin size={12} /> {job.location} · {job.type}
+                    </p>
+                  </div>
+                </div>
+
+                <ul className="mt-5 space-y-2.5 text-sm leading-relaxed text-muted-foreground">
+                  {job.points.map((point) => (
+                    <li key={point} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/60" />
+                      <span>
+                        <Metric text={point} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-5 flex flex-wrap items-center gap-2">
+                  {job.tags.map((tag) => (
+                    <span key={tag} className="chip">
+                      {tag}
+                    </span>
+                  ))}
+                  {job.link && (
+                    <a href={job.link.href} target="_blank" rel="noopener noreferrer" className="chip gap-1 text-primary hover:border-primary/50">
+                      {job.link.label} <FiExternalLink size={11} />
+                    </a>
+                  )}
+                </div>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
